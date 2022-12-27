@@ -19,6 +19,11 @@ jobs:
         run: |
           echo "{date}={$(date +'%Y-%m-%d')}" >> $GITHUB_STATE
 
+      - name: Set environment variables
+        run: echo $TAG_NAME
+        env:
+          TAG_NAME: nightly-${{ env.date }}
+
       - name: Checkout
         uses: actions/checkout@v2
 
