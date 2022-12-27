@@ -1,0 +1,22 @@
+on:
+  schedule:
+    - cron: '15 3 * * *'
+
+jobs:
+  generate:
+    runs-on: debian-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Generate static route list
+        run: python main.py --region CN MO HK TW JP KR SG
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "route_list.conf"
