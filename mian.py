@@ -2,8 +2,11 @@ import argparse
 from urllib import request
 
 parser = argparse.ArgumentParser(description='Generate static route lists for bird based on region.')
-parser.add_argument('--region', default=['CN'], nargs='+',
-                    help='The area contained in the generated static route list. Available areas: https://www.iwik.org/ipcountry/. (default: CN)')
+parser.add_argument('--next', default="wg0", metavar="INTERFACE OR IP",
+                    help='Specify the next hop for the selected IP, this is usually the tunnel interface (default: wg0)')
+parser.add_argument('--region', default=['US'], nargs='+',
+                    help='The IPs of which areas will be included in the generated static route list. Available '
+                         'areas: https://www.iwik.org/ipcountry/. (default: US)')
 args = parser.parse_args()
 
 
