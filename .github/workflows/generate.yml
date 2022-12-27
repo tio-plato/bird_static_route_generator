@@ -23,7 +23,10 @@ jobs:
           python-version: '3.10'
 
       - name: Generate static route list
-        run: python main.py --region CN MO HK TW JP KR SG
+        run: |
+          ls -la
+          ls -la ..
+          python main.py --region CN MO HK TW JP KR SG
 
       - uses: ncipollo/release-action@v1
         with:
