@@ -14,15 +14,20 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: Get current date
-        id: date
-        run: |
-          echo "{date}={$(date +'%Y-%m-%d')}" >> $GITHUB_STATE
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYYMMDD
 
-      - name: Set environment variables
-        run: echo $TAG_NAME
+      - name: Use current time
         env:
-          TAG_NAME: nightly-${{ env.date }}
+          TIME: "${{ steps.current-time.outputs.time }}"
+          R_TIME: "${{ steps.current-time.outputs.readableTime }}"
+          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+          YEAR: "${{ steps.current-time.outputs.year }}"
+          DAY: "${{ steps.current-time.outputs.day }}"
+        run: echo $TIME $R_TIME $F_TIME $YEAR $DAY
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -40,4 +45,4 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "route_list.conf"
-          tag: nightly-${{ env.date }}
+          tag: nightly-${{ steps.current-time.outputs.formattedTime }}
