@@ -24,9 +24,10 @@ jobs:
 
       - name: Generate static route list
         run: |
+          echo ${{ steps.date.outputs.date }}
           python main.py --region CN MO HK TW JP KR SG
 
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "route_list.conf"
-          tag: daily-${{ steps.date.outputs.date }}
+          tag: v${{ steps.date.outputs.date }}
