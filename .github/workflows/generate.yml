@@ -40,7 +40,7 @@ jobs:
       - name: Generate static route list
         run: |
           echo ${{ steps.date.outputs.date }}
-          python main.py --region CN MO HK TW JP KR SG
+          python main.py --region CN MO HK TW JP KR SG --next eth0
 
       - uses: ncipollo/release-action@v1
         with:
