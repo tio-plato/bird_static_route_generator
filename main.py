@@ -27,7 +27,7 @@ if __name__ == '__main__':
     iplist = download_iplist()
     route_list = []
     for ip in iplist:
-        route_list.append('route ' + ip + ' via "wg0";')
+        route_list.append('route ' + ip + ' via "' + args.next + '";')
 
     with open('route_list.conf', 'w') as f:
         for route in route_list:
